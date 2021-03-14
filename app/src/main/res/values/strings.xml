@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SimpleWeather</string>
+    <string name="weather_temperature">Weather Temperature</string>
+    <string name="feels_like">Feels Like</string>
+    <string name="minimum_temperature">Minimum Temperature</string>
+    <string name="maximum_temperature">Maximum Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="weather_name">Weather name</string>
+    <string name="date_time">Date time</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+</resources>
