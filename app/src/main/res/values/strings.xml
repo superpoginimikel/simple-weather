@@ -9,4 +9,6 @@
     <string name="date_time">Date time</string>
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
+    <string name="search_city">Search City..</string>
+    <string name="city_not_found">City not found</string>
 </resources>

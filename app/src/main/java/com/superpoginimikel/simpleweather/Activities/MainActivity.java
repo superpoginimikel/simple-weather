@@ -1,50 +1,35 @@
 package com.superpoginimikel.simpleweather.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
 
 import com.superpoginimikel.simpleweather.R;
-import com.superpoginimikel.simpleweather.databinding.ActivityMainBinding;
-import com.superpoginimikel.simpleweather.model.WeatherModel;
-import com.superpoginimikel.simpleweather.retrofit.RetrofitInstance;
-import com.superpoginimikel.simpleweather.retrofit.RetrofitInterface;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final String EXTRA_CITY = "com.superpoginimikel.simpleweather.extra.CITY";
+
+    private EditText searchCityEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RetrofitInterface retrofitInterface = RetrofitInstance.getRetrofitInstance().create(RetrofitInterface.class);
-        Call<WeatherModel> weatherCall = retrofitInterface.getCurrentWeatherByLocation("Japan", RetrofitInterface.APP_ID, RetrofitInterface.UNITS);
+        searchCityEditText = findViewById(R.id.searchCityEditText);
+    }
 
-        // Show loading until data comes back
-        /*
-            Loading here or pre-made layout for loading
-        */
-
-        weatherCall.enqueue(new Callback<WeatherModel>() {
-            @Override
-            public void onResponse(Call<WeatherModel> call, Response<WeatherModel> response) {
-                Log.d("Response:", response.body().toString());
-
-                WeatherModel weather = response.body();
-                ActivityMainBinding binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
-                binding.setWeather(weather);
-            }
-
-            @Override
-            public void onFailure(Call<WeatherModel> call, Throwable t) {
-                // Throw and handle error here
-            }
-        });
+    public void searchCity(View view) {
+        if (!TextUtils.isEmpty(searchCityEditText.getText())) {
+            String city = searchCityEditText.getText().toString();
+            Intent cityInfoIntent = new Intent(this, WeatherInfo.class);
+            cityInfoIntent.putExtra(EXTRA_CITY, city);
+            startActivity(cityInfoIntent);
+        }
     }
 }

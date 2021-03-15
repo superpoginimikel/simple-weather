@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="weather"
+            type="com.superpoginimikel.simpleweather.model.WeatherModel"/>
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/city_name"
+                style="@style/label_title_view_style"
+                android:gravity="center"
+                android:hint="@string/weather_name"
+                android:text="@{weather.name}" />
+
+            <TextView
+                style="@style/label_text_view_style"
+                android:gravity="center"
+                android:text="@{weather.dateTime}" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/temperature_card"
+                style="@style/weather_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@color/divider"
+                    android:orientation="vertical"
+                    android:showDividers="middle">
+
+                    <LinearLayout style="@style/weather_card_linear_layout">
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/weather_temperature" />
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="2"
+                            android:gravity="right"
+                            android:text="@{String.valueOf(weather.main.temp)}" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/weather_card_linear_layout">
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/feels_like" />
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="2"
+                            android:gravity="right"
+                            android:text="@{String.valueOf(weather.main.feelsLike)}" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/weather_card_linear_layout">
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/minimum_temperature" />
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="2"
+                            android:gravity="right"
+                            android:text="@{String.valueOf(weather.main.tempMin)}" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/weather_card_linear_layout">
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/maximum_temperature" />
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="2"
+                            android:gravity="right"
+                            android:text="@{String.valueOf(weather.main.tempMax)}" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/weather_card_linear_layout">
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/humidity" />
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="2"
+                            android:gravity="right"
+                            android:text="@{String.valueOf(weather.main.humidity)}" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/sun_info_card"
+                style="@style/weather_card">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@color/divider"
+                    android:orientation="vertical"
+                    android:showDividers="middle">
+
+                    <LinearLayout
+                        style="@style/weather_card_linear_layout">
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/sunrise" />
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="@{weather.sys.sunrise}" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/weather_card_linear_layout">
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="@string/sunset" />
+
+                        <TextView
+                            style="@style/label_text_view_style"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="@{weather.sys.sunset}" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

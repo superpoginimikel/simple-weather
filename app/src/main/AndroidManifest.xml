@@ -17,6 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.WeatherInfo"
+            android:label = "Weather Info"
+            android:parentActivityName=".Activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=
+                    "com.superpoginimikel.simpleweather.Activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
