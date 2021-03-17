@@ -45,12 +45,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
 
-    // androidX room components
-    implementation 'androidx.room:room-runtime:2.1.0-beta01'
-    annotationProcessor 'androidx.room:room-compiler:2.1.0-beta01'
-    androidTestImplementation 'androidx.room:room-testing:2.1.0-beta01'
+    // Room components
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$rootProject.roomVersion"
 
-    // androidX lifecycle components
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
-    androidTestImplementation 'androidx.lifecycle:lifecycle-compiler:2.2.0-alpha01'
+    // Lifecycle components
+    implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
+    annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
 }
