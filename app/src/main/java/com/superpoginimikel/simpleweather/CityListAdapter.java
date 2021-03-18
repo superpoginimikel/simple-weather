@@ -6,8 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.superpoginimikel.simpleweather.databinding.CityRecyclerviewItemBinding;
 import com.superpoginimikel.simpleweather.db.entity.CityEntity;
 
 import java.util.List;
@@ -17,37 +20,35 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityVi
     private final LayoutInflater mInflater;
     private List<CityEntity> cities; // Cached copy of words
 
-    public CityListAdapter(Context context) {
+    @Nullable
+    private final CityClickCallback cityClickCallback;
+
+    public CityListAdapter(Context context, CityClickCallback cityClickCallback) {
         mInflater = LayoutInflater.from(context);
+        this.cityClickCallback = cityClickCallback;
     }
 
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.city_recyclerview_item, parent, false);
-        return new CityViewHolder(itemView);
+        CityRecyclerviewItemBinding binding = DataBindingUtil
+                .inflate(LayoutInflater.from(parent.getContext()), R.layout.city_recyclerview_item,
+                        parent, false);
+        binding.setCallback(cityClickCallback);
+        return new CityViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(CityViewHolder holder, int position) {
-        if (cities != null) {
-            CityEntity current = cities.get(position);
-            holder.cityItemView.setText(current.getCity());
-        } else {
-             holder.cityItemView.setText(R.string.city_not_found);
-        }
+        CityEntity current = cities.get(position);
+        holder.binding.setCityEntity(current);
+        holder.binding.executePendingBindings();
     }
-
-    /**
-     *     Associate a list of words with this adapter
-     */
 
     public void setCities(List<CityEntity> cities) {
         this.cities = cities;
         notifyDataSetChanged();
     }
 
-    // getItemCount() is called many times, and when it is first called,
-    // mWords has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
         if (cities != null)
@@ -55,24 +56,17 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityVi
         else return 0;
     }
 
-    /**
-     * Get the word at a given position.
-     * This method is useful for identifying which word
-     * was clicked or swiped in methods that handle user events.
-     *
-     * @param position
-     * @return The word at the given position
-     */
     public CityEntity getWordAtPosition(int position) {
         return cities.get(position);
     }
 
-    class CityViewHolder extends RecyclerView.ViewHolder {
-        private final TextView cityItemView;
+    static class CityViewHolder extends RecyclerView.ViewHolder {
 
-        private CityViewHolder(View itemView) {
-            super(itemView);
-            cityItemView = itemView.findViewById(R.id.textView);
+        final CityRecyclerviewItemBinding binding;
+
+        CityViewHolder(CityRecyclerviewItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

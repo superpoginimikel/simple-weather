@@ -20,9 +20,6 @@ public interface CityDao {
     @Delete
     void deleteCity(CityEntity city);
 
-    @Query("DELETE FROM city_table")
-    void deleteAll();
-
-    @Query("SELECT * from city_table ORDER BY city ASC")
+    @Query("SELECT * from city_table")
     LiveData<List<CityEntity>> getAllCities();
 }

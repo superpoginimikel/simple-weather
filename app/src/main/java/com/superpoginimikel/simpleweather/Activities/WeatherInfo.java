@@ -5,10 +5,13 @@ import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.superpoginimikel.simpleweather.R;
 import com.superpoginimikel.simpleweather.databinding.WeatherInfoBinding;
@@ -42,7 +45,7 @@ public class WeatherInfo extends AppCompatActivity {
         Call<WeatherModel> weatherCall = retrofitInterface.getCurrentWeatherByLocation(city, RetrofitInterface.APP_ID, RetrofitInterface.UNITS);
         Log.d("Url", weatherCall.request().url().toString());
 
-        // Show loading until data comes back
+        // TODO: Show loading until data comes back
         // For the mean time, hide all views until we get a result
         /*
             Loading here or pre-made layout for loading
@@ -69,6 +72,18 @@ public class WeatherInfo extends AppCompatActivity {
                 FailedWeatherInfo();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            SharedPreferences preferences = getSharedPreferences(MainActivity.sharedPrefFile, MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(String.valueOf(R.string.last_city_searched), "");
+            editor.apply();
+            onBackPressed();
+        }
+        return true;
     }
 
     private void FailedWeatherInfo()
